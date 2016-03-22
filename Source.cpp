@@ -208,13 +208,13 @@ void sellSeat(SeatInfo seatstemp[ROWS][COLS], PatronInfo currPatronInfo[ROWS][CO
 
 	int row = 50, column = 50;
 	cout << "       Enter a 0 or negative number to go back to the main menu.\n";
-	getNumbers(row, "Enter the row for the seat the patron is buying.\n", 10);
+	getNumbers(row, "Enter the row number for the seat the patron is buying.\n", 10);
 
 	//Logic to break the input+validation loop if the user decides he does not wish to continue with action
 	if(row<1)
         return;
 
-	getNumbers(column, "Enter the column for the seat that the patron is buying.\n", 16);
+	getNumbers(column, "Enter the seat number(column) for the seat that the patron is buying.\n", 16);
 	if(column<1)
         return;
 	column = column - 1;
@@ -254,8 +254,7 @@ void sellSeat(SeatInfo seatstemp[ROWS][COLS], PatronInfo currPatronInfo[ROWS][CO
 	generateID(row, column, seatstemp, currPatronInfo);
 
 	// show generated id
-	cout << currPatronInfo[row][column].id << endl;
-	cout << seatstemp[row][column].IDS << endl;
+	cout << "\n       Patron's ID is: " << currPatronInfo[row][column].id << endl << endl;
 	system("pause");
 }
 
@@ -304,7 +303,7 @@ void sellBlock(SeatInfo seats[ROWS][COLS], PatronInfo currPatronInfo[ROWS][COLS]
 		fail = false;
 
 		// Get user input and then change to proper element numbers with 10-row and col-1
-		getNumbers(row, "Enter the row for the first seat the patron is buying.\n", 10);
+		getNumbers(row, "Enter the row number for the seats the patron is buying.\n", 10);
         if(row<1)
             return;
 		row = 10 - row;
@@ -349,10 +348,9 @@ void sellBlock(SeatInfo seats[ROWS][COLS], PatronInfo currPatronInfo[ROWS][COLS]
             bool flag = true;
             // validate user input
             while (flag){
-                clearConsole;
-                cout << setw(7) << " " << "This range of seats crosses the aisle.\n";
-                cout << setw(7) << " " << "\nEnter Y or y to confirm selling the seats.\n";
-                cin.ignore();
+                cout << "\n       This range of seats crosses the aisle.\n";
+                cout << "\n       Enter Y or y to confirm selling the seats.\n\n"
+                << "       Enter any other letter to cancel the sale: ";
                 cin >> userInput;
                 flag = validate_Y_input(userInput);
             }
@@ -363,7 +361,7 @@ void sellBlock(SeatInfo seats[ROWS][COLS], PatronInfo currPatronInfo[ROWS][COLS]
 			if (choice == 'y' || choice == 'Y')
 				break;
 			else
-				fail = true;
+				return;
 		}
 	} while (fail == true);
 
@@ -374,7 +372,7 @@ void sellBlock(SeatInfo seats[ROWS][COLS], PatronInfo currPatronInfo[ROWS][COLS]
 
     // prompt for and validate first name
 	while (flag) {
-        cout << setw(7) << " " << "Enter first name: ";
+        cout << endl << setw(7) << " " << "Enter first name: ";
         cin >> nameTemp;
         flag = validateName(nameTemp);
 	}
@@ -396,7 +394,7 @@ void sellBlock(SeatInfo seats[ROWS][COLS], PatronInfo currPatronInfo[ROWS][COLS]
 	flag = true;
 	// validate phone number
 	while (flag) {
-        cout << setw(7) << " " << "Phone # in format nnnnnnnnnn\n\n";
+        cout << setw(7) << " " << "Phone # in format nnnnnnnnnn\n" << "       ";
         cin >> phoneNum;
         flag = validatePhoneNum(phoneNum);
 	}
@@ -408,8 +406,7 @@ void sellBlock(SeatInfo seats[ROWS][COLS], PatronInfo currPatronInfo[ROWS][COLS]
 	generateID(row, colstart, seats, currPatronInfo);
 
 	// show generated id
-	cout << currPatronInfo[row][colstart].id << endl;
-	cout << seats[row][colstart].IDS << endl;
+	cout << endl << "       Patron's ID is: " << currPatronInfo[row][colstart].id << endl << endl;
 	system("pause");
 
     // Copy patron's information to all sold seats.
@@ -435,7 +432,7 @@ void refundSeat(SeatInfo seats[ROWS][COLS], PatronInfo currPatronInfo[ROWS][COLS
 	char tempID[ID_SIZE];
 
     // Usual get data and return if negative or 0 control structure
-	getNumbers(row, "Enter the row for the seat the patron wants to refund.\n", 10);
+	getNumbers(row, "Enter the row number for the seat the patron wants to refund.\n", 10);
     if(row<1)
         return;
 	getNumbers(col, "Enter the seat number(column) for the seat.\n", 16);
@@ -454,7 +451,7 @@ void refundSeat(SeatInfo seats[ROWS][COLS], PatronInfo currPatronInfo[ROWS][COLS
     strncpy(tempID, seats[row][col].IDS, ID_SIZE - 1);
     showPatronInfo(tempID, currPatronInfo);
 
-	cout << endl << "       All of this info will be deleted\n\n       This cannot be undone."
+	cout << endl << "       All patron info will be deleted\n\n       This cannot be undone."
     << "\n\n       Enter Y or y to confirm deletion.\n\n       Enter any other character to cancel deletion: ";
     string userInput = "";
     bool flag = true;
@@ -574,7 +571,7 @@ void showSeatingchar()//function definition for seating char
 	cout << setw(48) << "SEATING CHART\n\n\n";
 	cout << setw(42) << "Rear\n\n\n";
 	cout << setw(10) << "            Seats " << endl;
-	cout << setw(10) << "Row" << setw(2) << " ";
+	cout << setw(10) << "" << setw(2) << " ";
 	for (int k = 1; k <= col; k++)
 	{
 		cout << setw(1) << k << " ";
@@ -588,7 +585,7 @@ void showSeatingchar()//function definition for seating char
 		}
 	}
 	cout << endl;
-	cout << setw(40) << "Aisle" << endl;
+	cout << setw(40) << "Aisle" << endl << setw(10) << "Row";
 	for (int i = 0; i<10; i++)
 	{
 		cout << endl;
@@ -646,7 +643,7 @@ void showMenu()//Definition for show menu function
 	cout << " A) Sell a ticket";
 	cout << setw(45) << " E) Refund a ticket" << endl;
 	cout << " B) Sell a group of tickets";
-	cout << setw(42) << " F) Delete all information" << endl;
+	cout << setw(49) << " F) Delete all patron information" << endl;
 	cout << " C) Search patron information";
 	cout << setw(37) << " G) Credits for program" << endl;
 	cout << " D) Total revenue and seats remaining";
@@ -676,7 +673,7 @@ void seatAndRevenu(SeatInfo seats[ROWS][COLS])//Definition for counting seat and
      cout<<setw(25)<<"Total Empty Seat is: "<<setw(5)<<emptySeat<<endl;
      cout<<setw(25)<<"Total Taken Seat is: "<<setw(5)<<160-emptySeat<<endl;
      cout<<setw(19)<<"Total Seat is: "<<setw(11)<<"160"<<endl;
-     cout<<setw(20)<<"Total Revenue is"<<setw(10)<<totalRevenu<<endl;
+     cout<<setw(20)<<"Total Revenue is: "<<setw(10)<<totalRevenu<<endl;
      cout<<endl;
      system("PAUSE");
 }
@@ -686,7 +683,7 @@ void credit()// Definition for credit function
    system("CLS");
    SetColor(6);
    cout<<endl;
-   cout<<setw(10)<<"Designed and Programmed for HUNTIGTON PLAYHOUSE by Jedi Coders"<<endl<<endl;
+   cout<<setw(10)<<"Designed and Programmed for HUNTINGTON PLAYHOUSE by Jedi Coders"<<endl<<endl;
    cout<<"Team Master:"<<endl;
    cout<<"Reign Durrent"<<endl;
    cout<<"ReignDurrent@gmail.com"<<endl<<endl;
@@ -1084,7 +1081,7 @@ void searchPatronInfo(SeatInfo seats[ROWS][COLS], PatronInfo currPatronInfo[ROWS
 	clearConsole;
 	cout << endl << endl << endl;
 	// prompt for seat row;
-	cout << setw(7) << " " << "What does the patron sit?" << endl;
+	cout << setw(7) << " " << "Where does the patron sit?" << endl;
 	cout << setw(7) << " " << "Enter the seat row: ";
 	cin >> row;
 	// adjust row for array
@@ -1106,11 +1103,12 @@ void searchPatronInfo(SeatInfo seats[ROWS][COLS], PatronInfo currPatronInfo[ROWS
 	// if not empty call showPatronInfo function
 	else {
 		strncpy(tempID, seats[row][col].IDS, ID_SIZE - 1);
-		cout << tempID << endl;
+		cout << "\n       Patron's ID is: " << tempID << endl << endl;
 
 		system("pause");
 
 		showPatronInfo(tempID, currPatronInfo);
+
 	}
 }
 
@@ -1137,7 +1135,7 @@ void showPatronInfo(char tempID[], PatronInfo currPatronInfo[ROWS][COLS]) {
 				cout << setw(7) << " " << "ID:         " << currPatronInfo[i][j].id << endl;
 				cout << setw(7) << " " << "First Name: " << currPatronInfo[i][j].firstName << endl;
 				cout << setw(7) << " " << "Last Name:  " << currPatronInfo[i][j].lastName << endl;
-				cout << setw(7) << " " << "Phone:      " << currPatronInfo[i][j].phoneNum << endl;
+				cout << setw(7) << " " << "Phone:      " << currPatronInfo[i][j].phoneNum << endl << endl;
 				system("pause");
 			}
 		}
