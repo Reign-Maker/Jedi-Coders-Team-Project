@@ -564,10 +564,8 @@ bool soldCheck(int row, int col, SeatInfo seats[ROWS][COLS])
 
 
 //-----------------------------------Jeel's code below-----------------------------------
-void showSeatingchar()
+void showSeatingchar()//function definition for seating char
 {
-	const char TAKEN = 'X';//seats taken
-	const char EMPTY = 'O';//seats free
 	const int row = 10;
 	const int col = 16;
 	SetColor(14);
@@ -601,7 +599,6 @@ void showSeatingchar()
 		}
 		for (int j = 0; j<col; j++)
 		{
-			//   cout<<setw(1)<< EMPTY<<" ";
 			cout << setw(1) << SChart[i][j] << " ";
 			if (j<9)
 			{
@@ -644,7 +641,7 @@ void SetColor(int value){
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), value);
 }
 
-void showMenu()
+void showMenu()//Definition for show menu function
 {
 	cout << " A) Sell a ticket";
 	cout << setw(45) << " E) Refund a ticket" << endl;
@@ -656,21 +653,7 @@ void showMenu()
 	cout << setw(22) << " H) Quit Program" << endl;
 }
 
-
-
-void errorCheckin(char choice)
-{
-	while (choice <'A' || choice>'F'&choice<'a' || choice>'f')
-	{
-		cout << "Opps Enter Wrong Choice" << endl;
-		cout << "Please Enter Correct choice" << endl;
-		cin >> choice;
-		cin.clear();
-		cin.ignore();
-	}
-}
-
-void seatAndRevenu(SeatInfo seats[ROWS][COLS])
+void seatAndRevenu(SeatInfo seats[ROWS][COLS])//Definition for counting seat and total revenue function
 {
     system("CLS");
     int emptySeat =160;
@@ -698,10 +681,11 @@ void seatAndRevenu(SeatInfo seats[ROWS][COLS])
      system("PAUSE");
 }
 
-void credit()
+void credit()// Definition for credit function
 {
    system("CLS");
    SetColor(6);
+   cout<<endl;
    cout<<setw(10)<<"Designed and Programmed for HUNTIGTON PLAYHOUSE by Jedi Coders"<<endl<<endl;
    cout<<"Team Master:"<<endl;
    cout<<"Reign Durrent"<<endl;
