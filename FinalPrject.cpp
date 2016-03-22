@@ -192,7 +192,7 @@ void getNumbers(int &thedata, string message, int upperbound)
 		cout << setw(7) << " " << message << setw(7) << " ";
 		SetColor(11);
 		cin.getline(test, INT_MAX);
-		SetColor(13);
+		SetColor(15);
 		thedata = atoi(test);
 		cin.clear();
 		fflush(stdin);
@@ -226,7 +226,7 @@ void sellSeat(SeatInfo seatstemp[ROWS][COLS], PatronInfo currPatronInfo[ROWS][CO
         cout << setw(7) << " " << "Enter first name: ";
         SetColor(11);
         cin >> nameTemp;
-        SetColor(13);
+        SetColor(15);
         flag = validateName(nameTemp);
 	}
 	// copy contents of name to patron array stuct member firstName
@@ -240,7 +240,7 @@ void sellSeat(SeatInfo seatstemp[ROWS][COLS], PatronInfo currPatronInfo[ROWS][CO
         cout << setw(7) << "  " << "Enter last name: ";
         SetColor(11);
         cin >> nameTemp;
-        SetColor(13);
+        SetColor(15);
         flag = validateName(nameTemp);
 	}
 	copyTempToLastName(nameTemp, currPatronInfo, row, column);
@@ -250,7 +250,9 @@ void sellSeat(SeatInfo seatstemp[ROWS][COLS], PatronInfo currPatronInfo[ROWS][CO
 	// validate phone number
 	while (flag) {
         cout << setw(7) << " " << "Phone # in format nnnnnnnnnn\n       ";
+        SetColor(11);
         cin >> phoneNum;
+        SetColor(15);
         flag = validatePhoneNum(phoneNum);
 	}
 	copyTempToPhoneNum(phoneNum, currPatronInfo, row, column);
@@ -260,8 +262,11 @@ void sellSeat(SeatInfo seatstemp[ROWS][COLS], PatronInfo currPatronInfo[ROWS][CO
 	generateID(row, column, seatstemp, currPatronInfo);
 
 	// show generated id
-	cout << "\n       Patron's ID is: " << currPatronInfo[row][column].id << endl << endl;
-	system("pause");
+	SetColor(12);
+	cout << "\n       Patron's ID is: " <<currPatronInfo[row][column].id<< endl << endl;
+	SetColor(7);
+    system("pause");
+    SetColor(15);
 }
 
 
@@ -358,7 +363,9 @@ void sellBlock(SeatInfo seats[ROWS][COLS], PatronInfo currPatronInfo[ROWS][COLS]
                 cout << "\n       This range of seats crosses the aisle.\n";
                 cout << "\n       Enter Y or y to confirm selling the seats.\n\n"
                 << "       Enter any other letter to cancel the sale: ";
+                SetColor(11);
                 cin >> userInput;
+                SetColor(15);
                 flag = validate_Y_input(userInput);
             }
             // Assign choice to the user input once it is validated.
@@ -380,7 +387,9 @@ void sellBlock(SeatInfo seats[ROWS][COLS], PatronInfo currPatronInfo[ROWS][COLS]
     // prompt for and validate first name
 	while (flag) {
         cout << endl << setw(7) << " " << "Enter first name: ";
+        SetColor(11);
         cin >> nameTemp;
+        SetColor(15);
         flag = validateName(nameTemp);
 	}
 	// copy contents of name to patron array stuct member firstName
@@ -392,7 +401,9 @@ void sellBlock(SeatInfo seats[ROWS][COLS], PatronInfo currPatronInfo[ROWS][COLS]
 	cin.clear();
 	while (flag) {
         cout << setw(7) << "  " << "Enter last name: ";
+        SetColor(11);
         cin >> nameTemp;
+        SetColor(15);
         flag = validateName(nameTemp);
 	}
 	copyTempToLastName(nameTemp, currPatronInfo, row, colstart);
@@ -402,7 +413,9 @@ void sellBlock(SeatInfo seats[ROWS][COLS], PatronInfo currPatronInfo[ROWS][COLS]
 	// validate phone number
 	while (flag) {
         cout << setw(7) << " " << "Phone # in format nnnnnnnnnn\n" << "       ";
+        SetColor(11);
         cin >> phoneNum;
+        SetColor(15);
         flag = validatePhoneNum(phoneNum);
 	}
 	copyTempToPhoneNum(phoneNum, currPatronInfo, row, colstart);
@@ -413,8 +426,11 @@ void sellBlock(SeatInfo seats[ROWS][COLS], PatronInfo currPatronInfo[ROWS][COLS]
 	generateID(row, colstart, seats, currPatronInfo);
 
 	// show generated id
+	SetColor(12);
 	cout << endl << "       Patron's ID is: " << currPatronInfo[row][colstart].id << endl << endl;
+	SetColor(7);
 	system("pause");
+	SetColor(15);
 
     // Copy patron's information to all sold seats.
 	for (int i = colstart; i<=colend; i++)
@@ -465,7 +481,9 @@ void refundSeat(SeatInfo seats[ROWS][COLS], PatronInfo currPatronInfo[ROWS][COLS
             // validate user input
     while (flag)
     {
+        SetColor(11);
         cin >> userInput;
+        SetColor(15);
         flag = validate_Y_input(userInput);
     }
     choice = userInput[0];
@@ -494,8 +512,11 @@ void menuChoice(char &choice)
 	// prompt for menu choice
 	while (flag) {
         cout << "\n\n";
+        SetColor(15);
         cout << setw(7) << " " << "Enter an option A - H: ";
+        SetColor(11);
         cin >> userInput;
+        SetColor(15);
         flag = menuChoiceValidate(userInput);
 	}
 	// Assign choice to chosen value once validated
@@ -516,7 +537,9 @@ void menuChoice(char &choice)
 		while (flag){
            cout << "\n       Are you sure that you want to exit the program?\n\n       "
            << "If you are sure enter Y or y.\n\n       Enter any other letter to go back to the main menu: ";
+           SetColor(11);
            cin >> userInput;
+           SetColor(15);
            flag = validate_Y_input(userInput);
 		}
 
@@ -540,7 +563,9 @@ void menuChoice(char &choice)
 		while (flag){
             cout << "\n       Are you sure you want to delete all ticket and patron information?\n\n       This cannot be undone.\n\n"
             << "       Enter Y or y if you are sure\n\n       Enter any other letter to cancel deletion: ";
+            SetColor(11);
             cin >> userInput;
+            SetColor(15);
             flag = validate_Y_input(userInput);
 		}
 		choice = userInput[0];
@@ -603,7 +628,12 @@ void showSeatingchar()//function definition for seating char
 		}
 		for (int j = 0; j<col; j++)
 		{
-			cout << setw(1) << SChart[i][j] << " ";
+
+			if(SChart[i][j]=='X')
+
+                SetColor(11);
+                cout << setw(1) << SChart[i][j] << " ";
+                SetColor(14);
 
 			if (j<9)
 			{
@@ -681,7 +711,7 @@ void seatAndRevenu(SeatInfo seats[ROWS][COLS])//Definition for counting seat and
      cout<<setw(25)<<"Total Empty Seat is: "<<setw(5)<<emptySeat<<endl;
      cout<<setw(25)<<"Total Taken Seat is: "<<setw(5)<<160-emptySeat<<endl;
      cout<<setw(19)<<"Total Seat is: "<<setw(11)<<"160"<<endl;
-     cout<<setw(20)<<"Total Revenue is: "<<setw(10)<<totalRevenu<<endl;
+     cout<<setw(22)<<"Total Revenue is: "<<setw(8)<<totalRevenu<<endl;
      cout<<endl;
      system("PAUSE");
 }
@@ -902,14 +932,14 @@ bool validateName(string name) {
 	    SetColor(12);
 		cout << setw(7) << " " << "ERROR: Invalid Input." << endl;
 		cout << setw(7) << " " << errorNotLetter;
-		SetColor(13);
+		SetColor(15);
 		return flag;
 	}
 	catch (string errorTooLong) {
 	    SetColor(12);
 	    cout << setw(7) << " " << "ERROR: Invalid Input." << endl;
 		cout << setw(7) << " " << errorTooLong;
-		SetColor(13);
+		SetColor(15);
 		return flag;
 	}
 	return flag = false;
@@ -975,7 +1005,7 @@ bool menuChoiceValidate(string input) {
 	    SetColor(12);
 	    cout << setw(7) << " " << "ERROR: Invalid Input." << endl;
 	    cout << setw(7) << " " << "Choice must be a letter A - F" << endl;
-	    SetColor(13);
+	    SetColor(15);
 	    return flag = true;
 	}
 
@@ -1013,14 +1043,14 @@ bool validatePhoneNum(string input) {
         SetColor(12);
         cout << setw(7) << "Error: Invalid Input." << endl;
         cout << setw(7) << errorMsgTooLong << endl;
-        SetColor(13);
+        SetColor(15);
         return flag;
     }
     catch (string errorMsgNotDigits) {
         SetColor(12);
         cout << setw(7) << "Error: Invalid Input." << endl;
         cout << setw(7) << errorMsgNotDigits << endl;
-        SetColor(13);
+        SetColor(15);
         return flag;
     }
     // no errors
@@ -1067,7 +1097,7 @@ bool validate_Y_input(string input) {
     catch (string errorMsg) {
         SetColor(12);
         cout << setw(7) << " " << errorMsg << endl;
-        SetColor(13);
+        SetColor(15);
         return flag;
     }
     return flag = false;
@@ -1091,13 +1121,17 @@ void searchPatronInfo(SeatInfo seats[ROWS][COLS], PatronInfo currPatronInfo[ROWS
 	// prompt for seat row;
 	cout << setw(7) << " " << "Where does the patron sit?" << endl;
 	cout << setw(7) << " " << "Enter the seat row: ";
+	SetColor(11);
 	cin >> row;
+	SetColor(15);
 	// adjust row for array
 	row = 10 - row;
 	cout << endl << endl << endl;
 	// prompt for seat number/column
 	cout << setw(7) << " " << "Enter the seat number(column): ";
+	SetColor(11);
 	cin >> col;
+	SetColor(15);
 	// adjust col for array
 	col = col - 1;
 
